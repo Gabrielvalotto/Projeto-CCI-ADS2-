@@ -1,1 +1,121 @@
+/* Configuração geral da página */
+body {
+    margin: 0;
+    font-family: Arial;
+    display: flex; /* deixa sidebar e conteúdo lado a lado */
+    background: #f4f6f9;
+}
 
+/* MENU LATERAL */
+.sidebar {
+    width: 200px;
+    background: #1e3c72;
+    color: white;
+    height: 100vh; /* altura total da tela */
+    padding: 20px;
+}
+
+/* Remove estilo padrão da lista */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Espaçamento dos itens */
+.sidebar li {
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* ÁREA PRINCIPAL */
+.main {
+    flex: 1; /* ocupa todo espaço restante */
+    padding: 20px;
+}
+
+/* BARRA SUPERIOR */
+.topbar {
+    background: #1e3c72;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 10px; /* espaço entre cards */
+    margin: 20px 0;
+}
+
+/* Estilo geral dos cards */
+.card {
+    flex: 1;
+    padding: 20px;
+    color: white;
+    border-radius: 8px;
+}
+
+/* Número dentro do card */
+.card span {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Cores dos cards */
+.green { background: #28a745; }
+.red { background: #dc3545; }
+.blue { background: #007bff; }
+.orange { background: #ffc107; color: black; }
+
+/* FORMULÁRIO */
+.form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Campos */
+input, select, button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Botão */
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* TABELA */
+.lista {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Tabela ocupa toda largura */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Células */
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Botão remover */
+button.remover {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+}
