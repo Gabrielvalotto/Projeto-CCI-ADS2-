@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Define padrão de caracteres (acentos funcionando) -->
+    <meta charset="UTF-8">
 
+    <!-- Título da aba do navegador -->
+    <title>Setup Integrador</title>
+
+    <!-- Importa o arquivo de estilo CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- MENU LATERAL (SIDEBAR) -->
+<div class="sidebar">
+    <!-- Nome do sistema -->
+    <h2>⚙️ Setup</h2>
+
+    <!-- Lista de navegação -->
+    <ul>  
+        <li>Dashboard</li>
+        <li>Salas</li>
+        <li>Materiais</li>
+        <li>Reservas</li>
+    </ul>
+</div>
+
+<!-- ÁREA PRINCIPAL DO SISTEMA -->
+<div class="main">
+
+    <!-- BARRA SUPERIOR -->
+    <div class="topbar">
+        <h1>Gerenciamento de Salas e Materiais</h1>
+    </div>
+
+    <!-- CARDS DE INFORMAÇÃO (RESUMO DO SISTEMA) -->
+    <div class="cards">
+
+        <!-- Card de salas disponíveis -->
+        <div class="card green">
+            Salas Disponíveis 
+            <span id="salas">12</span> <!-- Número exibido -->
+        </div>
+
+        <!-- Card de salas ocupadas -->
+        <div class="card red">
+            Salas Ocupadas 
+            <span id="ocupadas">5</span>
+        </div>
+
+        <!-- Card de materiais -->
+        <div class="card blue">
+            Materiais 
+            <span id="materiais">34</span>
+        </div>
+
+        <!-- Card de reservas (atualiza com JS) -->
+        <div class="card orange">
+            Reservas 
+            <span id="reservas">0</span>
+        </div>
+
+    </div>
+
+    <!-- FORMULÁRIO DE NOVA RESERVA -->
+    <div class="form">
+        <h2>Nova Reserva</h2>
+
+        <!-- Campo para nome do professor -->
+        <input type="text" id="nome" placeholder="Nome do professor">
+
+        <!-- Seleção do tipo de reserva -->
+        <select id="tipo">
+            <option value="Sala">Sala</option>
+            <option value="Notebook">Notebook</option>
+        </select>
+
+        <!-- Nome do item -->
+        <input type="text" id="item" placeholder="Ex: Sala 101">
+
+        <!-- Data da reserva -->
+        <input type="date" id="data">
+
+        <!-- Botão que chama a função JS -->
+        <button onclick="agendar()">Salvar</button>
+    </div>
+
+    <!-- TABELA DE RESERVAS -->
+    <div class="lista">
+        <h2>Reservas Ativas</h2>
+
+        <table>
+            <!-- Cabeçalho da tabela -->
+            <thead>
+                <tr>
+                    <th>Professor</th>
+                    <th>Tipo</th>
+                    <th>Item</th>
+                    <th>Data</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+
+            <!-- Corpo da tabela (preenchido pelo JavaScript) -->
+            <tbody id="tabela"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Importa o JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
