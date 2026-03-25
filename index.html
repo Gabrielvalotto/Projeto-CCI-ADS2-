@@ -3,6 +3,8 @@
 <head>
     <!-- Define padrão de caracteres (acentos funcionando) -->
     <meta charset="UTF-8">
+    <!-- Define a viewport para responsividade em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Título da aba do navegador -->
     <title>Setup Integrador</title>
@@ -12,105 +14,415 @@
 </head>
 <body>
 
-<!-- MENU LATERAL (SIDEBAR) -->
-<div class="sidebar">
-    <!-- Nome do sistema -->
-    <h2>⚙️ Setup</h2>
+<!-- MENU LATERAL (SIDEBAR) usando nav para semântica -->
+<nav class="sidebar">
+    <!-- Nome do sistema com logo -->
+    <h2 class="sidebar-title">
+        <img src="logo.png" alt="Logo CCI" class="sidebar-logo" />
+        Setape
+    </h2>
 
-    <!-- Lista de navegação -->
+    <!-- Lista de navegação com links funcionais -->
     <ul>  
-        <li>Dashboard</li>
-        <li>Salas</li>
-        <li>Materiais</li>
-        <li>Reservas</li>
+        <li><a href="#" class="nav-link" data-page="dashboard">📊 Dashboard</a></li>
+        <li><a href="#" class="nav-link" data-page="salas">🚪 Salas</a></li>
+        <li><a href="#" class="nav-link" data-page="materiais">💻 Materiais</a></li>
+        <li><a href="#" class="nav-link" data-page="reservas">📅 Reservas</a></li>
     </ul>
+
+    <!-- Separador visual -->
+    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
+
+    <!-- Seção Administrativa -->
+    <h3 style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 10px;">ADMINISTRAÇÃO</h3>
+    <ul>
+        <li><a href="#" class="nav-link" data-page="admin">🔐 Admin</a></li>
+    </ul>
+</nav>
+
+<!-- MODAL DE LOGIN ADMIN -->
+<div id="adminLoginModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h2>🔐 Acesso Administrativo</h2>
+        <p>Insira suas credenciais para acessar o painel administrativo.</p>
+        
+        <label for="adminLogin">Login:</label>
+        <input type="text" id="adminLogin" placeholder="Digite seu login">
+        
+        <label for="adminPassword">Senha:</label>
+        <input type="password" id="adminPassword" placeholder="Digite sua senha">
+        
+        <button onclick="loginAdmin()" style="background: #007bff; margin-top: 15px;">Entrar</button>
+        <button onclick="fecharModalAdmin()" style="background: #6c757d; margin-top: 10px;">Cancelar</button>
+    </div>
 </div>
 
-<!-- ÁREA PRINCIPAL DO SISTEMA -->
-<div class="main">
+<!-- ÁREA PRINCIPAL DO SISTEMA usando main para semântica -->
+<main class="main">
 
-    <!-- BARRA SUPERIOR -->
-    <div class="topbar">
+    <!-- BARRA SUPERIOR usando header -->
+    <header class="topbar" id="topbar">
         <h1>Gerenciamento de Salas e Materiais</h1>
+    </header>
+
+    <!-- ========== PÁGINA: DASHBOARD ========== -->
+    <div id="page-dashboard" class="page">
+        <h2>📊 Dashboard - Resumo do Sistema</h2>
+        
+        <!-- CARDS DE INFORMAÇÃO (RESUMO DO SISTEMA) usando section -->
+        <section class="cards">
+            <!-- Card de salas disponíveis -->
+            <div class="card green">
+                Salas Disponíveis 
+                <span id="salas">0</span>
+            </div>
+
+            <!-- Card de salas ocupadas -->
+            <div class="card red">
+                Salas Ocupadas 
+                <span id="ocupadas">0</span>
+            </div>
+
+            <!-- Card de materiais -->
+            <div class="card blue">
+                Materiais
+                <span id="materiais">0</span>
+            </div>
+
+            <!-- Card de reservas -->
+            <div class="card orange">
+                Reservas Ativas
+                <span id="reservas">0</span>
+            </div>
+        </section>
+
+        <!-- Estatísticas adicionais -->
+        <section class="form" style="margin-top: 20px;">
+            <h3>📈 Informações do Sistema</h3>
+            <p><strong>Total de Salas:</strong> <span id="totalSalas">0</span></p>
+            <p><strong>Total de Notebooks:</strong> <span id="totalNotebooks">0</span></p>
+            <p><strong>Taxa de Ocupação (Salas):</strong> <span id="taxaOcupacao">0%</span></p>
+            <p><strong>Últimas Reservas:</strong> <span id="ultimasReservas">Nenhuma</span></p>
+        </section>
     </div>
 
-    <!-- CARDS DE INFORMAÇÃO (RESUMO DO SISTEMA) -->
-    <div class="cards">
-
-        <!-- Card de salas disponíveis -->
-        <div class="card green">
-            Salas Disponíveis 
-            <span id="salas">12</span> <!-- Número exibido -->
+    <!-- ========== PÁGINA: SALAS ========== -->
+    <div id="page-salas" class="page" style="display:none;">
+        <h2>🚪 Salas Disponíveis</h2>
+        
+        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #007bff;">
+            <p><strong>ℹ️ Informação:</strong> Para adicionar ou remover salas, contacte o administrador do sistema.</p>
         </div>
 
-        <!-- Card de salas ocupadas -->
-        <div class="card red">
-            Salas Ocupadas 
-            <span id="ocupadas">5</span>
-        </div>
-
-        <!-- Card de materiais -->
-        <div class="card blue">
-            Materiais 
-            <span id="materiais">34</span>
-        </div>
-
-        <!-- Card de reservas (atualiza com JS) -->
-        <div class="card orange">
-            Reservas 
-            <span id="reservas">0</span>
-        </div>
-
+        <section class="lista">
+            <h3>Salas Cadastradas no Sistema</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Capacidade</th>
+                        <th>Localização</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaSalas"></tbody>
+            </table>
+        </section>
     </div>
 
-    <!-- FORMULÁRIO DE NOVA RESERVA -->
-    <div class="form">
-        <h2>Nova Reserva</h2>
+    <!-- ========== PÁGINA: MATERIAIS ========== -->
+    <div id="page-materiais" class="page" style="display:none;">
+        <h2>💻 Materiais Disponíveis</h2>
+        
+        <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #007bff;">
+            <p><strong>ℹ️ Informação:</strong> Para adicionar ou remover materiais, contacte o administrador do sistema.</p>
+        </div>
 
-        <!-- Campo para nome do professor -->
-        <input type="text" id="nome" placeholder="Nome do professor">
-
-        <!-- Seleção do tipo de reserva -->
-        <select id="tipo">
-            <option value="Sala">Sala</option>
-            <option value="Notebook">Notebook</option>
-        </select>
-
-        <!-- Nome do item -->
-        <input type="text" id="item" placeholder="Ex: Sala 101">
-
-        <!-- Data da reserva -->
-        <input type="date" id="data">
-
-        <!-- Botão que chama a função JS -->
-        <button onclick="agendar()">Salvar</button>
+        <section class="lista">
+            <h3>Materiais Cadastrados no Sistema</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Quantidade</th>
+                        <th>Condição</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaMateriais"></tbody>
+            </table>
+        </section>
     </div>
 
-    <!-- TABELA DE RESERVAS -->
-    <div class="lista">
-        <h2>Reservas Ativas</h2>
+    <!-- ========== PÁGINA: RESERVAS ========== -->
+    <div id="page-reservas" class="page" style="display:none;">
+        <h2>📅 Gerenciamento de Reservas</h2>
+        
+        <!-- Seção de Login para Reservas -->
+        <section class="form" id="loginReservas" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+            <h3>🔐 Login Necessário</h3>
+            <p>Para fazer uma reserva, você precisa estar logado no sistema.</p>
+            
+            <label for="loginReserva">Login:</label>
+            <input type="text" id="loginReserva" placeholder="Digite seu login">
+            
+            <label for="senhaReserva">Senha:</label>
+            <input type="password" id="senhaReserva" placeholder="Digite sua senha">
+            
+            <button onclick="loginReserva()" style="background: #007bff; margin-top: 10px;">Entrar</button>
+        </section>
 
-        <table>
-            <!-- Cabeçalho da tabela -->
-            <thead>
-                <tr>
-                    <th>Professor</th>
-                    <th>Tipo</th>
-                    <th>Item</th>
-                    <th>Data</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
+        <!-- FORMULÁRIO DE NOVA RESERVA usando section -->
+        <section class="form" id="formReserva" style="display:none;">
+            <h3>Nova Reserva</h3>
 
-            <!-- Corpo da tabela (preenchido pelo JavaScript) -->
-            <tbody id="tabela"></tbody>
-        </table>
+            <!-- Campo para nome com label para acessibilidade -->
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Nome completo" required>
+
+            <!-- Seleção do tipo de reserva -->
+            <label for="tipo">Tipo de Reserva:</label>
+            <select id="tipo" onchange="atualizarItensDisponiveis()">
+                <option value="Sala">Sala</option>
+                <option value="Notebook">Notebook</option>
+                <option value="Material">Material</option>
+            </select>
+
+            <!-- Seleção de item disponível -->
+            <label for="item">Item Disponível:</label>
+            <select id="item"></select>
+
+            <!-- Data da reserva -->
+            <label for="data">Data de Início:</label>
+            <input type="date" id="data">
+
+            <!-- Hora de início -->
+            <label for="horaInicio">Hora de Início:</label>
+            <input type="time" id="horaInicio">
+
+            <!-- Data de fim -->
+            <label for="dataFim">Data de Fim:</label>
+            <input type="date" id="dataFim">
+
+            <!-- Hora de fim -->
+            <label for="horaFim">Hora de Fim:</label>
+            <input type="time" id="horaFim">
+
+            <!-- Botão que chama a função JS -->
+            <button onclick="agendar()">Salvar Reserva</button>
+            
+            <button onclick="logoutReserva()" style="background: #6c757d; margin-top: 10px;">Sair</button>
+            <h2>Reservas Ativas</h2>
+
+            <table>
+                <!-- Cabeçalho da tabela -->
+                <thead>
+                    <tr>
+                        <th>Professor</th>
+                        <th>Tipo</th>
+                        <th>Item</th>
+                        <th>Data Início</th>
+                        <th>Hora Início</th>
+                        <th>Data Fim</th>
+                        <th>Hora Fim</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+
+                <!-- Corpo da tabela (preenchido pelo JavaScript) -->
+                <tbody id="tabela"></tbody>
+            </table>
+        </section>
     </div>
 
-</div>
+    <!-- ========== PÁGINA: ADMINISTRADOR ========== -->
+    <div id="page-admin" class="page" style="display:none;">
+        <h2>🔐 Painel de Administração</h2>
+        
+        <!-- Abas do Admin -->
+        <div class="admin-tabs">
+            <button class="tab-button active" onclick="mostrarAbaAdmin('estatisticas')">📊 Estatísticas</button>
+            <button class="tab-button" onclick="mostrarAbaAdmin('salas')">🚪 Salas</button>
+            <button class="tab-button" onclick="mostrarAbaAdmin('materiais')">💻 Materiais</button>
+            <button class="tab-button" onclick="mostrarAbaAdmin('usuarios')">👥 Usuários</button>
+            <button class="tab-button" onclick="mostrarAbaAdmin('config')">⚙️ Configurações</button>
+        </div>
+
+        <!-- Conteúdo das Abas -->
+        <div id="aba-estatisticas" class="aba-admin">
+            <h3>📊 Estatísticas Gerais</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <p><strong>Total de Reservas:</strong> <span id="adminTotalReservas">0</span></p>
+                    <p><strong>Salas Cadastradas:</strong> <span id="adminTotalSalas">0</span></p>
+                    <p><strong>Notebooks Cadastrados:</strong> <span id="adminTotalNotebooks">0</span></p>
+                </div>
+                <div>
+                    <p><strong>Reservas Ativas:</strong> <span id="adminReservasAtivas">0</span></p>
+                    <p><strong>Salas Disponíveis:</strong> <span id="adminSalasDisponiveis">0</span></p>
+                    <p><strong>Notebooks Disponíveis:</strong> <span id="adminNotebooksDisponiveis">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="aba-salas" class="aba-admin" style="display:none;">
+            <h3>🚪 Gerenciar Salas</h3>
+            <h4 style="margin-top: 0; color: #666; font-size: 0.95rem;">Adicionar Nova Sala</h4>
+            
+            <label for="nomeSala">Nome/Número da Sala:</label>
+            <input type="text" id="nomeSala" placeholder="Ex: Sala 101">
+            
+            <label for="capacidadeSala">Capacidade:</label>
+            <input type="number" id="capacidadeSala" placeholder="Ex: 30">
+            
+            <label for="localizacaoSala">Localização:</label>
+            <input type="text" id="localizacaoSala" placeholder="Ex: Prédio A, 1º andar">
+            
+            <button onclick="adicionarSala()" style="background: #28a745; margin-top: 10px;">
+                ➕ Adicionar Sala
+            </button>
+
+            <h4 style="margin-top: 20px; color: #666; font-size: 0.95rem;">Salas Cadastradas</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Capacidade</th>
+                        <th>Localização</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaSalasAdmin"></tbody>
+            </table>
+        </div>
+
+        <div id="aba-materiais" class="aba-admin" style="display:none;">
+            <h3>💻 Gerenciar Materiais</h3>
+            <h4 style="margin-top: 0; color: #666; font-size: 0.95rem;">Adicionar Novo Material</h4>
+            
+            <label for="nomeMaterial">Nome do Material:</label>
+            <input type="text" id="nomeMaterial" placeholder="Ex: Notebook Dell">
+            
+            <label for="tipoMaterial">Tipo:</label>
+            <select id="tipoMaterial">
+                <option value="Notebook">Notebook</option>
+                <option value="Projetor">Projetor</option>
+                <option value="Quadro">Quadro Branco</option>
+                <option value="Outro">Outro</option>
+            </select>
+            
+            <label for="quantidadeMaterial">Quantidade:</label>
+            <input type="number" id="quantidadeMaterial" placeholder="Ex: 5">
+            
+            <label for="condicaoMaterial">Condição:</label>
+            <select id="condicaoMaterial">
+                <option value="Novo">Novo</option>
+                <option value="Bom">Bom</option>
+                <option value="Uso">Em Uso</option>
+                <option value="Manutenção">Manutenção</option>
+            </select>
+            
+            <button onclick="adicionarMaterial()" style="background: #28a745; margin-top: 10px;">
+                ➕ Adicionar Material
+            </button>
+
+            <h4 style="margin-top: 20px; color: #666; font-size: 0.95rem;">Materiais Cadastrados</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Quantidade</th>
+                        <th>Condição</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaMaterialsAdmin"></tbody>
+            </table>
+        </div>
+
+        <div id="aba-usuarios" class="aba-admin" style="display:none;">
+            <h3>👥 Gerenciar Usuários</h3>
+            <h4 style="margin-top: 0; color: #666; font-size: 0.95rem;">Adicionar Novo Usuário</h4>
+            
+            <label for="nomeUsuario">Nome Completo:</label>
+            <input type="text" id="nomeUsuario" placeholder="Ex: João Silva">
+            
+            <label for="tipoUsuario">Tipo de Usuário:</label>
+            <select id="tipoUsuario">
+                <option value="Professor">Professor</option>
+                <option value="Aluno">Aluno</option>
+                <option value="Coordenador">Coordenador</option>
+            </select>
+            
+            <label for="loginUsuario">Login:</label>
+            <input type="text" id="loginUsuario" placeholder="Ex: joao.silva">
+            
+            <label for="senhaUsuario">Senha:</label>
+            <input type="password" id="senhaUsuario" placeholder="Digite uma senha">
+            
+            <button onclick="adicionarUsuario()" style="background: #28a745; margin-top: 10px;">
+                ➕ Adicionar Usuário
+            </button>
+
+            <h4 style="margin-top: 20px; color: #666; font-size: 0.95rem;">Usuários Cadastrados</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Login</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaUsuariosAdmin"></tbody>
+            </table>
+        </div>
+
+        <div id="aba-config" class="aba-admin" style="display:none;">
+            <h3>⚙️ Configurações do Sistema</h3>
+            
+            <label for="diasMaximoNotebook">Dias Máximos para Notebooks:</label>
+            <input type="number" id="diasMaximoNotebook" value="7" min="1">
+            
+            <label for="diasMaximoSala">Dias Máximos para Salas:</label>
+            <input type="number" id="diasMaximoSala" value="1" min="1">
+            
+            <button onclick="salvarConfigurações()" style="background: #17a2b8; margin-top: 10px;">
+                Salvar Configurações
+            </button>
+        </div>
+
+        <!-- Seção de Limpeza de Dados -->
+        <section class="form" style="margin-top: 20px;">
+            <h3>🗑️ Gerenciar Dados</h3>
+            <p style="color: #666; font-size: 0.9rem;">⚠️ Cuidado: estas ações podem ser irreversíveis.</p>
+            
+            <button onclick="limparTodosDados()" style="background: #dc3545;">
+                Limpar Todos os Dados do Sistema
+            </button>
+            
+            <button onclick="limparReservas()" style="background: #ff6b6b; margin-top: 10px;">
+                Limpar Apenas Reservas
+            </button>
+            
+            <button onclick="exportarDados()" style="background: #28a745; margin-top: 10px;">
+                📥 Exportar Dados (JSON)
+            </button>
+        </section>
+
+        <!-- Log do Sistema -->
+        <section class="lista" style="margin-top: 20px;">
+            <h3>📝 Log de Atividades</h3>
+            <textarea id="logSistema" style="width: 100%; height: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace; font-size: 0.9rem; resize: vertical;" readonly></textarea>
+        </section>
+    </div>
+
+</main>
 
 <!-- Importa o JavaScript -->
-<script src="script.js"></script>
+<script src="Script.js"></script>
 
 </body>
 </html>
