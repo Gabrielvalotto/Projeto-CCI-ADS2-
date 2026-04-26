@@ -1,0 +1,342 @@
+/* Variáveis CSS para cores e valores reutilizáveis */
+:root {
+    --primary-color: #1e3c72;
+    --secondary-color: #007bff;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-bg: #f4f6f9;
+    --white: #ffffff;
+    --border-radius: 8px;
+    --padding: 20px;
+    --sidebar-width: 200px;
+}
+
+/* Configuração geral da página */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* Adicionado sans-serif para fallback */
+    display: flex; /* deixa sidebar e conteúdo lado a lado */
+    background: var(--light-bg);
+    color: #333; /* cor padrão legível, mantém leitura clara */
+}
+
+/* Texto padrão em painel e tabelas retorna ao estilo anterior */
+label, input, select, button {
+    color: #000;
+}
+
+
+/* MENU LATERAL */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--primary-color);
+    color: var(--white);
+    height: 100vh; /* altura total da tela */
+    padding: var(--padding);
+}
+
+/* Remove estilo padrão da lista */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Links de navegação do sidebar */
+.sidebar a {
+    color: var(--white);
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    transition: background 0.3s;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar a.active {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    border-left: 4px solid var(--warning-color);
+    padding-left: 6px;
+}
+
+/* Espaçamento dos itens */
+.sidebar li {
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* Logo e título da sidebar */
+.sidebar-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.sidebar-logo {
+    width: 48px; /* Aumenta o tamanho da logo */
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%; /* Deixa redonda */
+    border: 2px solid var(--white);
+    background: var(--white);
+}
+
+/* ÁREA PRINCIPAL */
+.main {
+    flex: 1; /* ocupa todo espaço restante */
+    padding: 20px;
+}
+
+/* BARRA SUPERIOR */
+.topbar {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 10px;
+    border-radius: var(--border-radius);
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 10px; /* espaço entre cards */
+    margin: 20px 0;
+}
+
+/* Estilo geral dos cards */
+.card {
+    flex: 1;
+    padding: 20px;
+    color: white;
+    border-radius: 8px;
+}
+
+/* Número dentro do card */
+.card span {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Cores dos cards */
+.green { background: var(--success-color); }
+.red { background: var(--danger-color); }
+.blue { background: var(--info-color); }
+.orange { background: var(--warning-color); color: black; }
+
+/* FORMULÁRIO */
+.form {
+    background: var(--white);
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--padding);
+}
+
+/* Campos */
+input, select, button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Botão */
+button {
+    background: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: background 0.3s; /* Efeito de hover suave */
+}
+
+button:hover {
+    background: #0056b3; /* Cor mais escura no hover */
+}
+
+/* TABELA */
+.lista {
+    background: var(--white);
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+}
+
+/* Tabela ocupa toda largura */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px; /* Reduz fonte para caber mais colunas */
+    overflow-x: auto; /* Scroll horizontal se necessário */
+    display: block;
+}
+
+/* Células */
+th, td {
+    padding: 8px; /* Reduz padding para caber */
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Botão remover */
+button.remover {
+    background: var(--danger-color);
+    color: var(--white);
+    border: none;
+    padding: 5px;
+    border-radius: var(--border-radius);
+}
+
+/* SISTEMA DE PÁGINAS */
+.page {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Animação de aparição */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Sidebar em cima no mobile */
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .sidebar ul {
+        display: flex;
+        justify-content: space-around;
+        margin: 0;
+    }
+    
+    .sidebar li {
+        margin: 0;
+    }
+    
+    .cards {
+        flex-direction: column; /* Cards em coluna */
+    }
+    
+    .card {
+        margin-bottom: 10px;
+    }
+    
+    input, select, button {
+        width: 100%;
+    }
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    border: 2px solid red; /* Debug border */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ABAS ADMIN */
+.admin-tabs {
+    display: flex;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.tab-button {
+    background: #f8f9fa;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 0;
+    font-size: 14px;
+    transition: background 0.3s;
+    white-space: nowrap;
+    color: #000; /* texto preto nas abas */
+    font-weight: bold;
+}
+
+.tab-button.active {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+
+.tab-button:hover {
+    background: #e9ecef;
+}
+
+.tab-button.active:hover {
+    background: var(--primary-color);
+}
+
+.aba-admin {
+    background: var(--white);
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+}
